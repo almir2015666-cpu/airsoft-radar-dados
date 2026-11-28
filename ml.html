@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Airsoft Radar · Mercado Livre</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font: 16px/1.5 system-ui, sans-serif; max-width: 560px; margin: 60px auto; padding: 0 16px; background: #14170f; color: #e9e6da; }
+  code { display: block; padding: 10px; background: #242a1c; border-radius: 8px; word-break: break-all; margin: 8px 0; }
+  a { color: #e8783a; }
+</style>
+</head>
+<body>
+<h1>Conectando ao Mercado Livre…</h1>
+<p id="msg">Voltando para o Airsoft Radar no seu PC.</p>
+<script>
+  // O Mercado Livre só aceita endereço https de retorno do login: esta página devolve o código
+  // para o app do PC (127.0.0.1:4777). Se o app não estiver aberto, mostra o código para colar.
+  var q = new URLSearchParams(location.search);
+  var code = q.get('code');
+  var msg = document.getElementById('msg');
+  if (!code) {
+    msg.textContent = 'O Mercado Livre não devolveu o código de acesso' + (q.get('error') ? ' (' + q.get('error') + ')' : '') + '. Tente conectar de novo pelo app.';
+  } else {
+    msg.innerHTML = 'Se o app não abrir sozinho, abra o Airsoft Radar no PC e tente de novo — ou cole este código em Favoritos › Mercado Livre:<code>' + code.replace(/</g, '') + '</code>';
+    location.href = 'http://127.0.0.1:4777/api/ml/retorno?code=' + encodeURIComponent(code);
+  }
+</script>
+</body>
+</html>
